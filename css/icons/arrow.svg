@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="285.355" height="270.711" viewBox="0 0 285.355 270.711">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+      }
+
+      .cls-1 {
+        stroke-width: 100px;
+      }
+
+      .cls-2 {
+        stroke-width: 50px;
+      }
+    </style>
+  </defs>
+  <g id="Gruppe_1" data-name="Gruppe 1" transform="translate(-160.5 -136.145)">
+    <line id="Linie_1" data-name="Linie 1" class="cls-1" x2="150" transform="translate(210.5 271.5)"/>
+    <line id="Linie_3" data-name="Linie 3" class="cls-2" x2="100" y2="100" transform="translate(310.5 171.5)"/>
+    <line id="Linie_4" data-name="Linie 4" class="cls-2" y1="100" x2="100" transform="translate(310.5 271.5)"/>
+    <line id="Linie_5" data-name="Linie 5" class="cls-2" y1="200" transform="translate(310.5 171.5)"/>
+  </g>
+</svg>

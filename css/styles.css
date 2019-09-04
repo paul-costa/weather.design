@@ -1,0 +1,279 @@
+:root
+{
+    --main-text-color: black !important;
+}
+
+.invertElement
+{
+    /* Invert code gets placed here by JS */
+}
+
+.backgroundImage
+{
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    z-index: 0;
+    
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: cover;
+
+    transition: 3s;
+}
+
+#maincontainer
+{
+    height: 100vh;
+}
+
+#temperatureText, #locationText, #summaryText, #humidityText, #windspeedText, #summaryHourly, #currentDate
+{
+    font-family: 'Quicksand';
+    color: var(--main-text-color);
+    
+    font-size: 12em;
+    font-weight: 300;
+}
+
+#temperatureText
+{
+    margin-bottom: -0.25em;
+}
+
+
+#currentDate
+{ 
+  font-size: 2em;
+}
+
+#locationText
+{
+    font-size: 2em;
+}
+
+#summaryText, #humidityText, #windspeedText, #summaryHourly
+{
+    font-size: 1.5em;
+}
+
+#summaryText
+{
+    max-height: 1.5em;
+}
+
+.textIcon
+{
+    font-size: 1.5em;
+    margin: 0.2em 0em;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+.iconHourly
+{
+    height: 1.5em;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+
+
+.rightButton, .leftButton
+{
+    z-index: 2;
+    position:absolute;
+    height: 100vh;
+    width: 10%;
+}
+
+
+.rightButton
+{
+    right: 1em;
+
+}
+
+.leftButton
+{
+    left: 1em;
+}
+
+
+#rightButton
+{
+    transition: 750ms;
+    outline: none;
+}
+
+#leftButton
+{
+    transition: 750ms;
+    outline: none;
+}
+
+
+
+.illuminateRight
+{
+    box-shadow: 1em 0 1em -0.5em var(--main-text-color);
+}
+
+.illuminateLeft
+{
+    box-shadow: -1em 0 1em -0.5em var(--main-text-color);
+}
+
+
+
+
+
+.footer 
+{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4em; /* Set the fixed height of the footer here */
+    line-height: 2em; /* Vertically center the text there */
+
+    font-family: 'Quicksand';
+    color: var(--main-text-color);
+}
+
+
+.slider 
+{
+    -webkit-appearance: none;
+    width: 80%;
+    height: 2em;
+    background: transparent;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover 
+{
+    opacity: 1; 
+}
+
+.slider::-webkit-slider-thumb 
+{
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+
+    width: 3em;
+    height: 3em;
+    border: 0.5em solid var(--main-text-color);
+    border-radius: 1em;
+}
+
+.slider::-moz-range-thumb 
+{
+    cursor: pointer;
+
+    width: 3em;
+    height: 3em;
+    border: 0.5em solid var(--main-text-color);
+    border-radius: 1em;
+}
+
+.sliderArrowContainer
+{
+    z-index: 2;
+    margin-top: -3em;
+
+    margin-left: 30%;
+    width: 40%;
+    display: none;
+    
+}
+
+#sliderArrowImg
+{
+    height: 3em;
+    transition: 2s;
+}
+
+
+
+
+
+
+.forecastDay
+{
+    font-family: 'Quicksand';
+    color: var(--main-text-color);
+    font-size: 1.5em;
+    font-weight: 600;
+
+    border: 1px solid var(--main-text-color);
+    margin-left: -1px;
+}
+
+.forecastDataContainer
+{
+    border-top: 1px solid var(--main-text-color);
+}
+
+.forecastTemp
+{
+    font-family: 'Quicksand';
+    font-weight: 100;
+    color: var(--main-text-color);
+    font-size: 1em;
+}
+
+.forecastIcon
+{
+    height: 1.5em;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+
+/* For mobile phones */
+@media only screen and (max-device-width: 600px) 
+{
+    #temperatureText
+    {
+        font-size: 7em;
+    }
+    
+    #summaryText, #humidityText, #windspeedText, #summaryHourly
+    {
+        font-size: 1.25em;
+    }
+
+    #summaryText
+    {
+        max-height: 1.25em;
+        margin-bottom: 0.5em;
+    }
+    
+    .iconHourly, .textIcon
+    {
+        font-size: 1.25em;
+    }
+
+
+    .forecastDay
+    {
+        font-size: 1.5em;
+        font-weight: 500;
+    }
+
+    .forecastTemp
+    {
+        font-size: 0.8em;
+    }
+
+    .forecastIcon
+    {
+        font-size: 1em;
+    }
+}
