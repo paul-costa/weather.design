@@ -1,40 +1,37 @@
-var weatherData;
-var colorSchema;
-var weatherDataArray = [];
+let weatherData;
+let colorSchema;
+let weatherDataArray = [];
 
-var weatherDataArrayNew = [];
+let weatherDataArrayNew = [];
 
 
 
 //Fetch Weather Data through API
-window.addEventListener('load', ()=>
-{
+window.addEventListener('load', ()=> {
     let long;
     let lat;
 
-    if(navigator.geolocation)
-    {
-        navigator.geolocation.getCurrentPosition(position =>
-        {
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
             long = position.coords.longitude;
             lat = position.coords.latitude;           
             
-            for(var i=0; i<7; i++)
+            for(let i=0; i<7; i++) {
                 fetchData(i);
+            }
 
 
-            function fetchData(daysInFuture)
-            {
-                var proxy = `https://cors-anywhere.herokuapp.com/`;
+            function fetchData(daysInFuture) {
+                let proxy = `https://cors-anywhere.herokuapp.com/`;
 
+                let apiRequest='';
 
-                if(daysInFuture==0)
-                    var apiRequest = `${proxy}https://api.darksky.net/forecast/52c6984aa80b6b1fc50d3dd340934b5b/${lat},${long}?units=auto`;
+                if(daysInFuture==0) {
+                    apiRequest = `${proxy}https://api.darksky.net/forecast/52c6984aa80b6b1fc50d3dd340934b5b/${lat},${long}?units=auto`;
+                }
     
-                else
-                {
-                    var dateToGet = 
-                    {
+                else {
+                    let dateToGet = {
                         year: new Date().getFullYear(),
                         month: new Date().getMonth(),
                         day: new Date().getDate() + daysInFuture
@@ -42,42 +39,37 @@ window.addEventListener('load', ()=>
                 
                     dateToGet = (new Date(dateToGet.year, dateToGet.month, dateToGet.day, 0, 0, 0, 0).getTime()/1000);
 
-                    var apiRequest = `${proxy}https://api.darksky.net/forecast/52c6984aa80b6b1fc50d3dd340934b5b/${lat},${long},${dateToGet}?units=auto`;
+                    apiRequest = `${proxy}https://api.darksky.net/forecast/52c6984aa80b6b1fc50d3dd340934b5b/${lat},${long},${dateToGet}?units=auto`;
                 }
 
-                var weatherDataApiContent = fetch(apiRequest)
-                    .then(requestedData =>
-                    {
+                let weatherDataApiContent = fetch(apiRequest)
+                    .then(requestedData => {
                         return requestedData.json();
                     })
-                    .then(requestedDataJson =>
-                    {
+                    .then(requestedDataJson => {
                         weatherDataApiContent=requestedDataJson;
                         return weatherDataApiContent;
-                    }).then(weatherDataApiContent =>
-                    {
-                        if(daysInFuture==0)
-                        {
+                    }).then(weatherDataApiContent =>  {
+                        if(daysInFuture==0) {
                             weatherData = weatherDataApiContent;
                             buildPage('today');
                         }
 
-                        else
+                        else {
                             weatherDataArray.push(weatherDataApiContent);
+                        }
                     });
             }
         });        
     }
 
-    else 
-    {
+    else {
         alert('Geolocation not enabled')
     }
 });
 
 
-function buildPage(time)
-{    
+function buildPage(time) {    
     if(time=="today") {    
         switch (weatherData.currently.icon) {
             case 'clear-day', 'clear-night': case 'cloudy': case 'fog': case 'partly-cloudy-day':
@@ -107,12 +99,10 @@ function buildVue(weatherData, colorSchema) {
             timestamp = 0;
             $('#insertedForecastVue').remove();
             
-            var weatherVue = new Vue(
-            {
+            let weatherVue = new Vue({
                 el: '#weatherVue',
     
-                data:
-                {
+                data: {
                     timestampValue: 1,
                     humidityIcon : "background-image: url(./css/icons/humidity.svg)",
     
@@ -125,43 +115,50 @@ function buildVue(weatherData, colorSchema) {
     
                 },
     
-                computed:
-                {   
-                    currentDate: function() 
-                    {
-                        var currentUnixTime = new Date(weatherData.hourly.data[this.timestampValue].time*1000);
+                computed: {   
+                    currentDate: function() {
+                        let currentUnixTime = new Date(weatherData.hourly.data[this.timestampValue].time*1000);
     
     
-                        var currentDate = 
-                        {
+                        let currentDate = {
                             time: currentUnixTime.getHours(),
                             day: currentUnixTime.getDate(),
                             month: currentUnixTime.getMonth(),
                         }
     
-                        var months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Oct','Nov','Dez'];
+                        let months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Oct','Nov','Dez'];
                         
                         return (currentDate.time + ':00 | ' + currentDate.day + '. ' + months[currentDate.month]);
                     },
     
-                    backgroundImage: function() 
-                    { return "background-image: url(./css/pics/"+weatherData.currently.icon+"/"+Math.floor(Math.random()*5)+".jpg)"; },
+                    
+                    backgroundImage: function() { 
+                        return "background-image: url(./css/pics/"+weatherData.currently.icon+"/"+Math.floor(Math.random()*5)+".jpg)"; 
+                    },
     
-                    temperatureText: function()
-                    { return (Math.round(weatherData.hourly.data[this.timestampValue].temperature) + "°C"); },
-                    locationText: function()
-                    { return (weatherData.timezone.split("/").reverse().join(", ")); },
+                    temperatureText: function() {
+                        return (Math.round(weatherData.hourly.data[this.timestampValue].temperature) + "°C"); 
+                    },
+
+                    locationText: function() { 
+                        return (weatherData.timezone.split("/").reverse().join(", ")); 
+                    },
     
-                    summaryIcon: function()
-                    { return ("background-image: url(./css/icons/summary/"+weatherData.hourly.data[this.timestampValue].icon+".svg)"); },
-                    summaryText: function()
-                    { return (weatherData.hourly.data[this.timestampValue].summary); },
+                    summaryIcon: function() { 
+                        return ("background-image: url(./css/icons/summary/"+weatherData.hourly.data[this.timestampValue].icon+".svg)"); 
+                    },
+
+                    summaryText: function() { 
+                        return (weatherData.hourly.data[this.timestampValue].summary); 
+                    },
     
-                    humidityText: function()
-                    { return (Math.round(weatherData.hourly.data[this.timestampValue].humidity*100)); },
+                    humidityText: function() { 
+                        return (Math.round(weatherData.hourly.data[this.timestampValue].humidity*100)); 
+                    },
     
-                    windspeedText: function()
-                    { return (weatherData.hourly.data[this.timestampValue].windSpeed); },
+                    windspeedText: function() { 
+                        return (weatherData.hourly.data[this.timestampValue].windSpeed); 
+                    },
     
                 },
     
@@ -228,12 +225,12 @@ function buildVue(weatherData, colorSchema) {
 
         await promise;
         
-        if(colorSchema=="_light")
+        if(colorSchema=="_light") {
             $('.invertElement').css('filter', 'invert(100%)');
+        }
 
             
         illuminateButton('right');
-        
         slideArrow();
     }
     
@@ -241,8 +238,7 @@ function buildVue(weatherData, colorSchema) {
 
 }
 
-function buildForecastVue()
-{
+function buildForecastVue() {
     //sort array by correct day before building vue
     weatherDataArray = weatherDataArray.sort((a,b) => (a.currently.time>b.currently.time) ? 1 : ((b.currently.time > a.currently.time) ? -1 : 0));
     
@@ -252,19 +248,16 @@ function buildForecastVue()
         let promise = new Promise((resolve, reject) => {
             $('#insertedWeatherVue').remove();
 
-            var forecastVue = new Vue(
-            {
+            let forecastVue = new Vue({
                 el: '#forecastVue',
 
-                data:
-                {
+                data: {
 
                 },
 
-                computed:
-                {
+                computed: {
                     getDates: function() {
-                        var dateArray = [];
+                        let dateArray = [];
 
                         const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']; 
                         const months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Oct','Nov','Dez'];
@@ -294,17 +287,16 @@ function buildForecastVue()
                             }
                             //let month = new Date(element.currently.time*1000).getMonth();
         
-                            dateArray.push(days[day] + ' - ' + date + dateDecl);
+                            dateArray.push(days[day-1] + ' - ' + date + dateDecl);
                         });
                         return dateArray;
                     },
                     
                     fillArray: function() {
-                        var forecastArray = []
+                        let forecastArray = []
                         
                         weatherDataArray.forEach(function(element) {
-                            var forecastTempObj = 
-                            {
+                            let forecastTempObj = {
                                 tempMaxDaily: Math.round(element.daily.data[0].temperatureMax) + "°C",
                                 iconDaily: generateIcon(element.daily.data[0].icon),
                                 tempMinDaily: Math.round(element.daily.data[0].temperatureMin) + "°C",
@@ -350,8 +342,9 @@ function buildForecastVue()
         });
         await promise;
 
-        if(colorSchema=="_light")
+        if(colorSchema=="_light") {
             $('.invertElement').css('filter', 'invert(100%)');
+        }
 
         illuminateButton('left');
     }
@@ -359,12 +352,10 @@ function buildForecastVue()
 
 
 //Slide Arrow Indicator accross footer to indicate weather movement possibility
-function slideArrow()
-{
+function slideArrow() {
     slideSlider();  
     
-    function slideSlider() 
-    {
+    function slideSlider() {
         $('.sliderArrowContainer').fadeIn(1000);
         $('#sliderArrowImg').css('margin-left', '100%');
         
@@ -377,8 +368,7 @@ function slideArrow()
 
 
 // Let the button illuminate two times
-function illuminateButton(buttonSide)
-{
+function illuminateButton(buttonSide) {
     switch (buttonSide) {
         case 'right':
             setTimeout(() => {$('#rightButton').addClass('illuminateRight');}, 1000);
